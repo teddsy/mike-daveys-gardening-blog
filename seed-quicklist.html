@@ -7,7 +7,7 @@
 <meta name="description" content="Quick order list for the demo seed catalogue. Tick to add to the basket. No payment is taken.">
 <link rel="stylesheet" href="style.css">
 </head>
-<body id="top" class="ql-page" data-page="quicklist">
+<body data-member-gate id="top" class="ql-page" data-page="quicklist">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <h1><a href="index.html">Mike Davey’s Gardening Blog</a></h1>
@@ -20,9 +20,23 @@
     <a href="about.html">About Mike</a>
   </nav>
   <a class="basket-link" href="seed-basket.html">Basket (<span data-basket-count>0</span>)</a>
+  <p id="member-bar" class="member-bar" hidden></p>
 </header>
 
 <main id="main">
+  <section id="member-gate" class="content-box member-gate" aria-labelledby="member-gate-title">
+    <p class="kicker">Members only</p>
+    <h2 id="member-gate-title">Members only</h2>
+    <p>The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
+    <form id="member-form" class="member-form">
+      <label for="member-code">Personal member code</label>
+      <input id="member-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="RGA-0000-NAME" required>
+      <p class="member-error" id="member-error" role="alert" hidden>That code is not recognised. Check it and try again.</p>
+      <p><button class="btn" type="submit">Sign in</button></p>
+    </form>
+    <p class="meta">Lost your code? Ask Mike.</p>
+  </section>
+  <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
   <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs"><a href="seed-order.html">Seed Ordering Service</a> › <span aria-current="page">Quick order list</span></p>
@@ -48,6 +62,7 @@
   <div class="ql-wrap" id="ql-list" role="table" aria-label="Quick order list"></div>
   <p class="ql-endtop"><a class="ql-top" href="#top">&#8593; Back to top</a></p>
   <div class="empty-state" id="ql-empty" hidden><h3>No lines match</h3><p>Try a different word or choose another type.</p></div>
+</div>
 </main>
 
 <div class="ql-bar" role="region" aria-label="Basket totals">
@@ -61,6 +76,8 @@
 <footer>
   <p>© Mike Davey’s Gardening Blog — demo site</p>
 </footer>
+<script src="members-data.js"></script>
+<script src="member-gate.js"></script>
 <script src="kings-seeds-data.js"></script>
 <script src="shop-core.js"></script>
 <script src="seed-quicklist.js"></script>

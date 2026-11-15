@@ -4,6 +4,8 @@ A demo static website for Mike Davey: a personal gardening blog, a growing knowl
 
 The seed shop is a demonstration. It does not take payment, and it does not send orders anywhere. The basket is stored in this browser only.
 
+The Seed Ordering Service pages ask for a member code. On GitHub Pages that check runs in the browser against hashes, which is not real protection. `cloudflare/README.md` explains how Mike can run the same check in a Cloudflare Worker and host the site on Cloudflare Pages.
+
 Published with GitHub Pages:
 
 https://teddsy.github.io/mike-daveys-gardening-blog/

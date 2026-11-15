@@ -1,0 +1,14 @@
+name = "seed-ordering-members"
+main = "worker.js"
+compatibility_date = "2026-11-15"
+
+# Who may call this worker from a browser. Use the live site origin, or * for a first test.
+# [vars]
+# ALLOW_ORIGIN = "https://example.com"
+# MEMBERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/SPREADSHEET_ID/pub?output=csv"
+
+# Optional KV. Keys are SHA-256 hashes of member codes. Values are display names.
+# Create it with: npx wrangler kv namespace create MEMBERS
+# [[kv_namespaces]]
+# binding = "MEMBERS"
+# id = "replace-with-namespace-id"

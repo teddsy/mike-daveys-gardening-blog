@@ -45,6 +45,15 @@ footer a{color:var(--rust-dk)}
 .demo,.demo-note{background:#fff6e0;border:1px solid #edd59b;color:#5b4410;padding:.6rem 1rem;font-weight:600;text-align:center}
 .service-notice{background:var(--aub-soft);border-left:4px solid var(--aub);border-radius:12px;padding:.85rem 1.1rem;margin:0 0 1rem;color:var(--aub);font-weight:600}
 .s-hero .service-notice{max-width:40em}
+body[data-member-gate]:not(.is-member) #member-app,
+body[data-member-gate]:not(.is-member) .ql-bar{display:none !important}
+body[data-member-gate].is-member #member-gate{display:none}
+.member-gate{max-width:40rem;margin-left:auto;margin-right:auto}
+.member-form{display:grid;gap:.45rem;max-width:22rem;margin:.8rem 0 1rem}
+.member-form input{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.03em}
+.member-error{color:#8f2a1a;font-weight:600;margin:0}
+.member-bar{flex-basis:100%;margin:0;font-weight:700;font-size:.92rem}
+.member-bar a{font-weight:700}
 .demo-note{border-radius:10px;text-align:left;font-weight:500;margin:.6rem 0}
 hr.leaf{border:0;border-top:1px solid var(--line);margin:1.6rem auto;max-width:60%}
 
