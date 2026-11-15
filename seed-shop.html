@@ -7,7 +7,7 @@
 <meta name="description" content="Browse the demo seed catalogue. List price only. No payment is taken and orders are not sent.">
 <link rel="stylesheet" href="style.css">
 </head>
-<body id="top" data-page="list">
+<body data-member-gate id="top" data-page="list">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <h1><a href="index.html">Mike Davey’s Gardening Blog</a></h1>
@@ -20,9 +20,23 @@
     <a href="about.html">About Mike</a>
   </nav>
   <a class="basket-link" href="seed-basket.html">Basket (<span data-basket-count>0</span>)</a>
+  <p id="member-bar" class="member-bar" hidden></p>
 </header>
 
 <main id="main">
+  <section id="member-gate" class="content-box member-gate" aria-labelledby="member-gate-title">
+    <p class="kicker">Members only</p>
+    <h2 id="member-gate-title">Members only</h2>
+    <p>The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
+    <form id="member-form" class="member-form">
+      <label for="member-code">Personal member code</label>
+      <input id="member-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="RGA-0000-NAME" required>
+      <p class="member-error" id="member-error" role="alert" hidden>That code is not recognised. Check it and try again.</p>
+      <p><button class="btn" type="submit">Sign in</button></p>
+    </form>
+    <p class="meta">Lost your code? Ask Mike.</p>
+  </section>
+  <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
   <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs" id="crumbs"><a href="seed-order.html">Seed Ordering Service</a></p>
@@ -59,6 +73,7 @@
       <div class="empty-state" id="empty" hidden><h3>No seeds match</h3><p>Try a different word, another crop, or clear the filters.</p><p><a class="btn" href="seed-shop.html">Clear filters</a> <a class="btn ghost" href="seed-order.html">Seed Ordering Service</a></p></div>
     </div>
   </div>
+</div>
 </main>
 
 <div class="ql-bar" id="ql-bar" role="region" aria-label="Basket totals" hidden>
@@ -72,6 +87,8 @@
 <footer>
   <p>© Mike Davey’s Gardening Blog — demo site</p>
 </footer>
+<script src="members-data.js"></script>
+<script src="member-gate.js"></script>
 <script src="kings-seeds-data.js"></script>
 <script src="shop-core.js"></script>
 <script src="seed-quicklist.js"></script>
