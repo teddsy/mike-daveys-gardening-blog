@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seed shop | Mike Davey’s Gardening Blog</title>
+<meta name="description" content="Demo seed shop. Catalogue list prices. No payment is taken and orders are not sent.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="landing">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <h1><a href="index.html">Mike Davey’s Gardening Blog</a></h1>
+  <nav aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="knowledge-hub.html">Growing Knowledge Hub</a>
+    <a href="seed-order.html" class="active" aria-current="page">Seed Shop</a>
+    <a href="monthly.html">Monthly Jobs</a>
+    <a href="tips.html">Growing Tips</a>
+    <a href="about.html">About Mike</a>
+  </nav>
+  <a class="basket-link" href="seed-basket.html">Basket (<span data-basket-count>0</span>)</a>
+</header>
+
+<main id="main">
+  <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <section class="produce-host content-box">
+    <img class="produce-deco produce-deco--tr" src="img/produce/tomato.webp" width="191" height="243" alt="" aria-hidden="true" decoding="async">
+    <p class="kicker">Demo catalogue</p>
+    <h2>Seed shop</h2>
+    <p>Browse a Kings Seeds fruit, vegetable and herb list. Prices are the catalogue list price, as published on 5 November 2026. Seeds and soft fruit plants both use that list price.</p>
+    <div class="shop-banner"><strong>Demo deadline shown on the catalogue: 31 January 2027</strong><span id="countdown"></span></div>
+    <p><a class="btn" href="seed-shop.html?view=page">Browse all seeds – page view</a> <a class="btn ghost" href="seed-shop.html?view=list">List view</a> <a class="btn ghost" href="seed-quicklist.html">Full quick order list</a> <a class="btn ghost" href="seed-basket.html">View basket (<span data-basket-count>0</span>)</a></p>
+    <p class="meta">Page view shows cards, 24 to a page. List view is one line per product, with tick boxes. The <a href="seed-quicklist.html">quick order list</a> is every line in one scroll.</p>
+  </section>
+  <section class="content-box" aria-labelledby="cats">
+    <div class="section-head"><h3 id="cats">Shop by category</h3><p>Hover, focus or tap <em>More info</em> on a card.</p></div>
+    <div class="flip-grid">
+      <article class="flip">
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="background-image:url('raised-bed.jpg')"><h3>Vegetables</h3><p><span data-cat-count="veg">…</span> varieties</p></div>
+          <div class="flip-face flip-back"><h3>Vegetable seeds</h3><p>Beans, brassicas, carrots, onions, squash, tomatoes and more, at the catalogue list price.</p><a class="btn" href="seed-shop.html?cat=veg&amp;view=page">Page view</a> <a class="btn" href="seed-shop.html?cat=veg&amp;view=list">List view</a></div>
+        </div>
+      </article>
+      <article class="flip">
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="background-image:url('hero.jpg')"><h3>Herbs</h3><p><span data-cat-count="herb">…</span> varieties</p></div>
+          <div class="flip-face flip-back"><h3>Herb seeds</h3><p>Basil, coriander, parsley, chives and other kitchen herbs, at the catalogue list price.</p><a class="btn" href="seed-shop.html?cat=herb&amp;view=page">Page view</a> <a class="btn" href="seed-shop.html?cat=herb&amp;view=list">List view</a></div>
+        </div>
+      </article>
+      <article class="flip">
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="background-image:url('allotment.jpg')"><h3>Fruit</h3><p><span data-cat-count="fruit">…</span> lines</p></div>
+          <div class="flip-face flip-back"><h3>Fruit seeds and soft fruit plants</h3><p>Strawberries, raspberries, currants, rhubarb and more. Seeds and plants are both at the catalogue list price.</p><a class="btn" href="seed-shop.html?cat=fruit&amp;view=page">Page view</a> <a class="btn" href="seed-shop.html?cat=fruit&amp;view=list">List view</a></div>
+        </div>
+      </article>
+    </div>
+    <p class="cat-tabs" style="margin-top:1rem">
+      <a href="seed-shop.html?cat=veg&amp;view=page">Vegetables – page</a><a href="seed-shop.html?cat=veg&amp;view=list">Vegetables – list</a>
+      <a href="seed-shop.html?cat=herb&amp;view=page">Herbs – page</a><a href="seed-shop.html?cat=herb&amp;view=list">Herbs – list</a>
+      <a href="seed-shop.html?cat=fruit&amp;view=page">Fruit and plants – page</a><a href="seed-shop.html?cat=fruit&amp;view=list">Fruit and plants – list</a>
+      <a href="seed-shop.html?clay=1&amp;view=page">Clay-soil friendly – page</a><a href="seed-shop.html?clay=1&amp;view=list">Clay-soil friendly – list</a>
+    </p>
+  </section>
+  <section class="content-box" aria-labelledby="crops-heading">
+    <div class="section-head"><h3 id="crops-heading">Browse by crop</h3><p>Open a crop in page view or list view.</p></div>
+    <div class="ql-wrap" id="crop-list"></div>
+  </section>
+  <section class="produce-host content-box" aria-labelledby="how">
+    <img class="produce-deco produce-deco--br produce-deco--faint" src="img/produce/pea.webp" width="178" height="215" alt="" aria-hidden="true" decoding="async">
+    <div class="section-head"><h3 id="how">How the demo basket works</h3></div>
+    <ol>
+      <li>Browse a category or a crop. Choose page view (cards) or list view (one line per product).</li>
+      <li>Add lines to the basket. It is saved in this browser only.</li>
+      <li>Open the basket to check the total. You can print a summary for your own notes. No payment is taken, and the order is not sent anywhere.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <p>© Mike Davey’s Gardening Blog — demo site</p>
+</footer>
+<script src="kings-seeds-data.js"></script>
+<script src="shop-core.js"></script>
+<script src="shop-ui.js"></script>
+<script src="flip.js"></script>
+</body>
+</html>

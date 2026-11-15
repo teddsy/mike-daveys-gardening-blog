@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seed shop | Mike Davey’s Gardening Blog</title>
+<meta name="description" content="Browse the demo seed catalogue. List price only. No payment is taken and orders are not sent.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="top" data-page="list">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <h1><a href="index.html">Mike Davey’s Gardening Blog</a></h1>
+  <nav aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="knowledge-hub.html">Growing Knowledge Hub</a>
+    <a href="seed-order.html" class="active" aria-current="page">Seed Shop</a>
+    <a href="monthly.html">Monthly Jobs</a>
+    <a href="tips.html">Growing Tips</a>
+    <a href="about.html">About Mike</a>
+  </nav>
+  <a class="basket-link" href="seed-basket.html">Basket (<span data-basket-count>0</span>)</a>
+</header>
+
+<main id="main">
+  <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <p class="crumbs" id="crumbs"><a href="seed-order.html">Seed shop</a></p>
+  <div class="shop-banner"><span>Catalogue list price</span><strong>Demo only – no payment, orders are not sent</strong></div>
+  <div class="produce-host section-head" style="margin:0 0 .6rem">
+    <img class="produce-deco produce-deco--tr produce-deco--sm" src="img/produce/kale.webp" width="160" height="260" alt="" aria-hidden="true" decoding="async">
+    <h2 id="list-title" style="margin:0">Seeds</h2>
+  </div>
+  <nav class="view-toggle" id="view-toggle" aria-label="Page or list view">
+    <a href="seed-shop.html?view=page" aria-current="page">Page view</a>
+    <a href="seed-shop.html?view=list">List view</a>
+  </nav>
+  <p class="meta" style="margin:0 0 .8rem">Page view shows cards, 24 to a page. List view is one line per product, with tick boxes and a total at the bottom. <a href="seed-quicklist.html">Or open the full quick order list</a>.</p>
+  <nav class="cat-tabs" id="cat-tabs" aria-label="Categories"></nav>
+  <div class="shop-layout">
+    <form class="filters" id="filters" role="search" aria-label="Filter seeds">
+      <label for="f-q">Search</label><input id="f-q" name="q" type="search" placeholder="e.g. tomato, basil">
+      <label for="f-cat">Category</label><select id="f-cat" name="cat"><option value="">All categories</option><option value="veg">Vegetables</option><option value="herb">Herbs</option><option value="fruit">Fruit and plants</option></select>
+      <label for="f-crop">Crop</label><select id="f-crop" name="crop"></select>
+      <label for="f-sort">Sort by</label><select id="f-sort" name="sort"><option value="">Catalogue order</option><option value="name">Name A–Z</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select>
+      <label class="check"><input type="checkbox" name="clay" value="1"> Clay-soil friendly only</label>
+      <p style="margin-top:1rem"><button class="btn" type="submit">Show results</button> <a href="seed-shop.html">Clear</a></p>
+    </form>
+    <div>
+      <div class="result-bar"><p class="meta" id="result-count" aria-live="polite"></p><a class="basket-link" href="seed-basket.html">Basket (<span data-basket-count>0</span>)</a></div>
+      <div id="shop-page-view">
+        <ul class="pgrid" id="grid"></ul>
+        <nav class="pager" id="pager" aria-label="Pages"></nav>
+      </div>
+      <div id="shop-list-view" hidden>
+        <div class="ql-wrap" id="ql-list" role="table" aria-label="Seed list"></div>
+        <p class="ql-endtop"><a class="ql-top" href="#top">&#8593; Back to top</a></p>
+      </div>
+      <div class="empty-state" id="empty" hidden><h3>No seeds match</h3><p>Try a different word, another crop, or clear the filters.</p><p><a class="btn" href="seed-shop.html">Clear filters</a> <a class="btn ghost" href="seed-order.html">Seed shop home</a></p></div>
+    </div>
+  </div>
+</main>
+
+<div class="ql-bar" id="ql-bar" role="region" aria-label="Basket totals" hidden>
+  <div class="ql-bar-totals" aria-live="polite">
+    <span><strong id="ql-count">0</strong> items</span>
+    <span>Total <strong id="ql-total">£0.00</strong></span>
+  </div>
+  <div class="ql-bar-acts"><a class="ql-top" href="#top" aria-label="Back to top of list" title="Back to top">&#8593; Top</a><a class="btn" id="ql-buy" href="seed-basket.html">View basket</a></div>
+</div>
+
+<footer>
+  <p>© Mike Davey’s Gardening Blog — demo site</p>
+</footer>
+<script src="kings-seeds-data.js"></script>
+<script src="shop-core.js"></script>
+<script src="seed-quicklist.js"></script>
+<script src="shop-ui.js"></script>
+</body>
+</html>
