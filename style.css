@@ -43,6 +43,8 @@ main{display:block;max-width:1140px;margin:1.5rem auto 2.5rem;padding:0 max(3%,1
 footer{background:#f3ebe0;color:var(--ink);border-top:3px solid var(--rust);text-align:center;padding:1.4rem 1rem;margin-top:2rem;font-size:.95rem}
 footer a{color:var(--rust-dk)}
 .demo,.demo-note{background:#fff6e0;border:1px solid #edd59b;color:#5b4410;padding:.6rem 1rem;font-weight:600;text-align:center}
+.service-notice{background:var(--aub-soft);border-left:4px solid var(--aub);border-radius:12px;padding:.85rem 1.1rem;margin:0 0 1rem;color:var(--aub);font-weight:600}
+.s-hero .service-notice{max-width:40em}
 .demo-note{border-radius:10px;text-align:left;font-weight:500;margin:.6rem 0}
 hr.leaf{border:0;border-top:1px solid var(--line);margin:1.6rem auto;max-width:60%}
 

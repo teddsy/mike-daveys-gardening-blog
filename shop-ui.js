@@ -52,7 +52,7 @@ function list(){
   var cleanState={cat:r.cat,crop:r.crop,q:st.q,sort:st.sort,clay:r.clay?'1':'',page:view==='list'?1:r.page,view:view};
   try{sessionStorage.setItem('seedShopLast',S.toSearch(cleanState));}catch(e){}
   var title=r.crop?S.cropLabel(r.crop):catLabel(r.cat);
-  document.title=title+' | Seed shop | Mike Davey\u2019s Gardening Blog';
+  document.title=title+' | Seed Ordering Service | Mike Davey\u2019s Gardening Blog';
   if(!document.body.id)document.body.id='top';
   document.body.classList.toggle('ql-page',view==='list');
   document.body.classList.toggle('shop-list-view',view==='list');
@@ -65,7 +65,7 @@ function list(){
     var listHref='seed-shop.html'+S.toSearch(Object.assign({},cleanState,{view:'list',page:1}));
     tog.innerHTML='<a href="'+pageHref+'"'+(view==='page'?' aria-current="page"':'')+'>Page view</a>'+
       '<a href="'+listHref+'"'+(view==='list'?' aria-current="page"':'')+'>List view</a>';}
-  $('#crumbs').innerHTML='<a href="seed-order.html">Seed shop</a> › '+(r.crop?(function(){var cc=(IDX.crops.filter(function(c){return c.name===r.crop;})[0]||{}).cat||'';return'<a href="seed-shop.html'+S.toSearch({cat:cc,view:view})+'">'+esc(catLabel(cc))+'</a> › ';})():'')+'<span aria-current="page">'+esc(title)+'</span>';
+  $('#crumbs').innerHTML='<a href="seed-order.html">Seed Ordering Service</a> › '+(r.crop?(function(){var cc=(IDX.crops.filter(function(c){return c.name===r.crop;})[0]||{}).cat||'';return'<a href="seed-shop.html'+S.toSearch({cat:cc,view:view})+'">'+esc(catLabel(cc))+'</a> › ';})():'')+'<span aria-current="page">'+esc(title)+'</span>';
   $('#list-title').textContent=title;
   $('#cat-tabs').innerHTML=[{id:'',label:'All'}].concat(S.CATS).map(function(c){var on=(r.cat||'')===c.id&&!r.crop;var href='seed-shop.html'+S.toSearch({cat:c.id,view:view});return'<a href="'+href+'"'+(on||((r.cat||'')===c.id&&r.crop)?' aria-current="page"':'')+'>'+esc(c.label)+'</a>';}).join('');
   var f=$('#filters'),E=f.elements,fc={cat:E.namedItem('cat'),crop:E.namedItem('crop'),q:E.namedItem('q'),sort:E.namedItem('sort'),clay:E.namedItem('clay')};fc.cat.value=r.cat;fc.q.value=st.q;fc.sort.value=['name','price-asc','price-desc'].indexOf(st.sort)>=0?st.sort:'';fc.clay.checked=r.clay;
@@ -118,10 +118,10 @@ function product(){
   var back=/^\?[^<>"]*$/.test(from)?'seed-shop.html'+from:lastList();
   var it=id&&IDX.byId[id];var box=$('#product');
   $('#back-link').href=back;
-  if(!it){document.title='Product not found | Mike Davey\u2019s Gardening Blog';$('#crumbs').innerHTML='<a href="seed-order.html">Seed shop</a> › <span aria-current="page">Not found</span>';
-    box.innerHTML='<div class="empty-state"><h2>Product not found</h2><p>We could not find that seed or plant. It may have been mistyped or removed from this demo catalogue.</p><p><a class="btn" href="'+esc(back)+'">Back to the seed list</a> <a class="btn ghost" href="seed-order.html">Seed shop home</a></p></div>';return;}
-  document.title=it.name+' | Mike Davey\u2019s Gardening Blog';
-  $('#crumbs').innerHTML='<a href="seed-order.html">Seed shop</a> › <a href="seed-shop.html?cat='+it.cat+'">'+esc(catLabel(it.cat))+'</a> › <a href="seed-shop.html'+esc(S.toSearch({cat:it.cat,crop:it.section}))+'">'+esc(S.cropLabel(it.section))+'</a> › <span aria-current="page">'+esc(it.name)+'</span>';
+  if(!it){document.title='Product not found | Seed Ordering Service | Mike Davey\u2019s Gardening Blog';$('#crumbs').innerHTML='<a href="seed-order.html">Seed Ordering Service</a> › <span aria-current="page">Not found</span>';
+    box.innerHTML='<div class="empty-state"><h2>Product not found</h2><p>We could not find that seed or plant. It may have been mistyped or removed from this demo catalogue.</p><p><a class="btn" href="'+esc(back)+'">Back to the seed list</a> <a class="btn ghost" href="seed-order.html">Seed Ordering Service</a></p></div>';return;}
+  document.title=it.name+' | Seed Ordering Service | Mike Davey\u2019s Gardening Blog';
+  $('#crumbs').innerHTML='<a href="seed-order.html">Seed Ordering Service</a> › <a href="seed-shop.html?cat='+it.cat+'">'+esc(catLabel(it.cat))+'</a> › <a href="seed-shop.html'+esc(S.toSearch({cat:it.cat,crop:it.section}))+'">'+esc(S.cropLabel(it.section))+'</a> › <span aria-current="page">'+esc(it.name)+'</span>';
   var rat={};try{rat=JSON.parse(store&&store.getItem('seedRatings'))||{};}catch(e){rat={};}
   var mine=rat[id]&&rat[id].n||0;
   box.innerHTML='<div class="product"><div><p class="kicker">'+esc(S.cropLabel(it.section))+' · '+esc(catLabel(it.cat))+'</p><h2>'+esc(it.name)+'</h2>'+
