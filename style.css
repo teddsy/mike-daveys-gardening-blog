@@ -52,6 +52,7 @@ body[data-member-gate].is-member #member-gate{display:none}
 .member-form{display:grid;gap:.45rem;max-width:22rem;margin:.8rem 0 1rem}
 .member-form input{width:100%}
 .demo-login{background:var(--sage-soft);border-radius:10px;padding:.7rem .9rem;font-weight:700}
+.bulk-note{background:var(--sage-soft);border-radius:12px;padding:.85rem 1rem;margin:0 0 1rem}
 .member-error{color:#8f2a1a;font-weight:600;margin:0}
 .member-bar{flex-basis:100%;margin:0;font-weight:700;font-size:.92rem}
 .member-bar a{font-weight:700}
