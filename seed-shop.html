@@ -26,19 +26,21 @@
 <main id="main">
   <section id="member-gate" class="content-box member-gate" aria-labelledby="member-gate-title">
     <p class="kicker">Members only</p>
-    <h2 id="member-gate-title">Members only</h2>
+    <h2 id="member-gate-title">Sign in</h2>
     <p>The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
+    <p class="demo-login">Demo login - Username: mike123  Password: mike123</p>
     <form id="member-form" class="member-form">
-      <label for="member-code">Personal member code</label>
-      <input id="member-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="RGA-0000-NAME" required>
-      <p class="member-error" id="member-error" role="alert" hidden>That code is not recognised. Check it and try again.</p>
+      <label for="member-user">Username</label>
+      <input id="member-user" name="username" type="text" autocomplete="username" required>
+      <label for="member-pass">Password</label>
+      <input id="member-pass" name="password" type="password" autocomplete="current-password" required>
+      <p class="member-error" id="member-error" role="alert" hidden>That username or password is not recognised.</p>
       <p><button class="btn" type="submit">Sign in</button></p>
     </form>
-    <p class="meta">Lost your code? Ask Mike.</p>
   </section>
   <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
-  <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <p class="demo-note" role="note"><strong>Demo.</strong> Each line shows the catalogue price and the example member price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs" id="crumbs"><a href="seed-order.html">Seed Ordering Service</a></p>
   <div class="shop-banner"><span>Catalogue list price</span><strong>Demo only – no payment, orders are not sent</strong></div>
   <div class="produce-host section-head" style="margin:0 0 .6rem">
@@ -79,7 +81,9 @@
 <div class="ql-bar" id="ql-bar" role="region" aria-label="Basket totals" hidden>
   <div class="ql-bar-totals" aria-live="polite">
     <span><strong id="ql-count">0</strong> items</span>
-    <span>Total <strong id="ql-total">£0.00</strong></span>
+    <span>Catalogue <strong id="ql-catalogue">£0.00</strong></span>
+    <span>Member <strong id="ql-member-total">£0.00</strong></span>
+    <span>You save <strong id="ql-you-save">£0.00 (0%)</strong></span>
   </div>
   <div class="ql-bar-acts"><a class="ql-top" href="#top" aria-label="Back to top of list" title="Back to top">&#8593; Top</a><a class="btn" id="ql-buy" href="seed-basket.html">View basket</a></div>
 </div>

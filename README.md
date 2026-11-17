@@ -1,8 +1,8 @@
 # Mike Davey’s Gardening Blog
 
-A demo static website for Mike Davey: a personal gardening blog, a growing knowledge hub, and a seed shop you can click through in the browser.
+A demo static website for Mike Davey: a personal gardening blog, a growing knowledge hub, and the Seed Ordering Service you can click through in the browser.
 
-The seed shop is a demonstration. It does not take payment, and it does not send orders anywhere. The basket is stored in this browser only.
+The Seed Ordering Service is a demonstration. It does not take payment, and it does not send orders anywhere. The basket is stored in this browser only.
 
 The Seed Ordering Service pages ask for a member code. On GitHub Pages that check runs in the browser against hashes, which is not real protection. `cloudflare/README.md` explains how Mike can run the same check in a Cloudflare Worker and host the site on Cloudflare Pages.
 
@@ -14,7 +14,7 @@ https://teddsy.github.io/mike-daveys-gardening-blog/
 
 - **Home** is the blog: a short welcome and three sample posts.
 - **Growing Knowledge Hub** links to the crop guide, monthly jobs and growing tips. East Midlands and Nottinghamshire notes stay, because they are about the soil and the season.
-- **Seed shop** is the Kings Seeds catalogue, the basket, the quick list and a printable summary.
+- **Seed Ordering Service** is the Kings Seeds catalogue, the basket, the quick list and a printable summary.
 - **About Mike** is a placeholder, marked so Mike can replace it with his own words.
 
 ## Publish

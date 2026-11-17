@@ -1,4 +1,4 @@
-/* Seed shop core logic. Shared by the seed pages. Demo only: no payment, nothing sent. */
+/* Seed Ordering Service core logic. Shared by the seed pages. Demo only: no payment, nothing sent. */
 (function(root,factory){var S=factory();if(typeof module==='object'&&module.exports)module.exports=S;else root.SEED_SHOP=S;})(this,function(){
   var PER_PAGE=24, CART_KEY='seedCart', MAX_QTY=99;
   var FRUIT=['Rhubarb','Strawberry','Strawberries (plants)','Raspberries','Blackberries','Blueberries','Currants','Gooseberry','Loganberries','Rhubarb Crowns'];
@@ -10,8 +10,14 @@
       sec.items.forEach(function(it){var o=Object.assign({},it,{section:sec.name,cat:cat});items.push(o);byId[o.id]=o;});});
     return{items:items,byId:byId,crops:crops,meta:data&&data.meta||{}};}
   function isSeed(i){return i.kind!=='plant';}
-  function unitPrice(i){return i.listPrice==null?null:i.listPrice;}
   function r2(n){return Math.round(n*100)/100;}
+  function discountPercent(){
+    var raw=(typeof window!=='undefined'&&window.MEMBERS)?window.MEMBERS.discountPercent:0;
+    var n=Number(raw);if(!isFinite(n)||n<0)n=0;if(n>100)n=100;return n;
+  }
+  function memberUnit(list){if(list==null)return null;return Math.round(Math.round(list*100)*(100-discountPercent())/100)/100;}
+  function saveAmount(list){if(list==null)return null;return r2(list-memberUnit(list));}
+  function unitPrice(i){return memberUnit(i.listPrice);}
   function toInt(v,d){var n=parseInt(v,10);return isFinite(n)?n:d;}
   function validCat(c){return CATS.some(function(x){return x.id===c;})?c:'';}
   function query(idx,o){o=o||{};var cat=validCat(o.cat),crop=o.crop||'',q=String(o.q||'').trim().toLowerCase(),clay=o.clay==='1'||o.clay===true;
@@ -26,14 +32,15 @@
     return{items:list.slice((page-1)*per,page*per),total:list.length,page:page,pages:pages,cat:cat,crop:crop,q:q,sort:s,clay:clay};}
   function sanitizeCart(raw,byId){var out={};if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
     Object.keys(raw).forEach(function(id){if(!byId||!byId[id])return;var v=raw[id];if(typeof v==='string'&&!/^\s*\d+(\.\d+)?\s*$/.test(v))return;var n=Math.floor(Number(v));if(!isFinite(n)||n<1)return;out[id]=Math.min(n,MAX_QTY);});return out;}
-  function cartTotals(cart,byId){var c=0,total=0;Object.keys(cart||{}).forEach(function(id){var it=byId[id];if(!it)return;var q=cart[id];c+=q;total+=q*(unitPrice(it)||0);});
-    return{count:c,total:r2(total)};}
+  function cartTotals(cart,byId){var c=0,catalogue=0,member=0;Object.keys(cart||{}).forEach(function(id){var it=byId[id];if(!it||it.listPrice==null)return;var q=cart[id];c+=q;catalogue+=q*it.listPrice;member+=q*(unitPrice(it)||0);});
+    catalogue=r2(catalogue);member=r2(member);var save=r2(catalogue-member);var percent=catalogue?Math.round(save/catalogue*1000)/10:0;
+    return{count:c,catalogue:catalogue,member:member,save:save,percent:percent,total:member};}
   function loadCart(st,byId){try{var raw=st.getItem(CART_KEY);if(!raw)return{};return sanitizeCart(JSON.parse(raw),byId);}catch(e){return{};}}
   function saveCart(st,cart){try{st.setItem(CART_KEY,JSON.stringify(cart));return true;}catch(e){return false;}}
   var KEYS=['cat','crop','q','sort','clay','page','view'];
   function parseState(search){var p=new URLSearchParams(search||''),o={};KEYS.forEach(function(k){o[k]=p.get(k)||'';});o.page=Math.max(1,toInt(o.page,1));return o;}
   function toSearch(o){var p=new URLSearchParams();KEYS.forEach(function(k){var v=o[k];if(k==='page'){if(v&&+v>1)p.set(k,v);}else if(v)p.set(k,v);});var s=p.toString();return s?'?'+s:'';}
   function money(n){return n==null?'—':'£'+Number(n).toFixed(2);}
-  return{PER_PAGE:PER_PAGE,CART_KEY:CART_KEY,MAX_QTY:MAX_QTY,CATS:CATS,catOf:catOf,cropLabel:cropLabel,buildIndex:buildIndex,isSeed:isSeed,unitPrice:unitPrice,
+  return{PER_PAGE:PER_PAGE,CART_KEY:CART_KEY,MAX_QTY:MAX_QTY,CATS:CATS,catOf:catOf,cropLabel:cropLabel,buildIndex:buildIndex,isSeed:isSeed,discountPercent:discountPercent,memberUnit:memberUnit,saveAmount:saveAmount,unitPrice:unitPrice,
     query:query,sanitizeCart:sanitizeCart,cartTotals:cartTotals,loadCart:loadCart,saveCart:saveCart,parseState:parseState,toSearch:toSearch,money:money};
 });

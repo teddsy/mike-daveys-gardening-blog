@@ -26,26 +26,28 @@
 <main id="main">
   <section id="member-gate" class="content-box member-gate" aria-labelledby="member-gate-title">
     <p class="kicker">Members only</p>
-    <h2 id="member-gate-title">Members only</h2>
+    <h2 id="member-gate-title">Sign in</h2>
     <p>The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
+    <p class="demo-login">Demo login - Username: mike123  Password: mike123</p>
     <form id="member-form" class="member-form">
-      <label for="member-code">Personal member code</label>
-      <input id="member-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="RGA-0000-NAME" required>
-      <p class="member-error" id="member-error" role="alert" hidden>That code is not recognised. Check it and try again.</p>
+      <label for="member-user">Username</label>
+      <input id="member-user" name="username" type="text" autocomplete="username" required>
+      <label for="member-pass">Password</label>
+      <input id="member-pass" name="password" type="password" autocomplete="current-password" required>
+      <p class="member-error" id="member-error" role="alert" hidden>That username or password is not recognised.</p>
       <p><button class="btn" type="submit">Sign in</button></p>
     </form>
-    <p class="meta">Lost your code? Ask Mike.</p>
   </section>
   <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
-  <p class="demo-note" role="note"><strong>Demo shop.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <p class="demo-note" role="note"><strong>Demo.</strong> Each line shows the catalogue price and the example member price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs"><a href="seed-order.html">Seed Ordering Service</a> › <span aria-current="page">Quick order list</span></p>
   <section class="produce-host content-box">
     <img class="produce-deco produce-deco--tr produce-deco--sm" src="img/produce/pea.webp" width="178" height="215" alt="" aria-hidden="true" decoding="async">
     <p class="kicker">Demo catalogue</p>
     <h2>Seed Ordering Service</h2>
-    <p>Every seed and plant line on one page: type, variety, packet size and the catalogue list price. Tick a box to add one of that item to the basket (the same basket as the rest of the shop). Untick to take it out. The total stays at the bottom of the screen.</p>
-    <p><a href="seed-shop.html">Prefer cards and details? Use the seed shop</a> · <a href="seed-basket.html">View basket</a></p>
+    <p>Every seed and plant line on one page: type, variety, packet size, catalogue price and member price. Tick a box to add one of that item to the basket (the same basket as the rest of the Seed Ordering Service). Untick to take it out. The totals stay at the bottom of the screen.</p>
+    <p><a href="seed-shop.html">Prefer cards and details? Use the Seed Ordering Service</a> · <a href="seed-basket.html">View basket</a></p>
   </section>
   <form class="ql-filters" id="ql-filters" role="search" aria-label="Filter the quick order list">
     <p><label for="ql-q">Search</label><br><input id="ql-q" name="q" type="search" placeholder="e.g. tomato, basil, 40 Seeds"></p>
@@ -68,7 +70,9 @@
 <div class="ql-bar" role="region" aria-label="Basket totals">
   <div class="ql-bar-totals" aria-live="polite">
     <span><strong id="ql-count">0</strong> items</span>
-    <span>Total <strong id="ql-total">£0.00</strong></span>
+    <span>Catalogue <strong id="ql-catalogue">£0.00</strong></span>
+    <span>Member <strong id="ql-member-total">£0.00</strong></span>
+    <span>You save <strong id="ql-you-save">£0.00 (0%)</strong></span>
   </div>
   <div class="ql-bar-acts"><a class="ql-top" href="#top" aria-label="Back to top of list" title="Back to top">&#8593; Top</a><a class="btn" id="ql-buy" href="seed-basket.html">View basket</a></div>
 </div>
