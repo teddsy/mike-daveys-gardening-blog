@@ -11,8 +11,8 @@
     return (root.MEMBERS && root.MEMBERS.season) || '';
   }
 
-  function normalise(code) {
-    return String(code || '').trim().toUpperCase().replace(/\s+/g, '');
+  function normaliseUser(username) {
+    return String(username || '').trim().toLowerCase();
   }
 
   function sha256Hex(text) {
@@ -25,37 +25,34 @@
     });
   }
 
-  function verifyLocal(normalised) {
-    var list = (root.MEMBERS && root.MEMBERS.members) || [];
-    return sha256Hex(normalised).then(function (hash) {
-      for (var i = 0; i < list.length; i++) {
-        if (list[i] && list[i].hash === hash) {
-          return { ok: true, name: list[i].name, code: normalised, season: season() };
-        }
-      }
-      return { ok: false };
+  function verifyLocal(username, password) {
+    var login = root.MEMBERS && root.MEMBERS.login;
+    return sha256Hex(username + '\n' + password).then(function (hash) {
+      if (!login || hash !== login.hash) return { ok: false };
+      return { ok: true, name: login.name, username: username, season: season() };
     });
   }
 
-  function verifyMember(code) {
-    var normalised = normalise(code);
-    if (!/^RGA-[A-Z0-9]{4}-[A-Z0-9]+$/.test(normalised)) return Promise.resolve({ ok: false });
+  function verifyMember(username, password) {
+    var user = normaliseUser(username);
+    var pass = String(password || '');
+    if (!user || !pass) return Promise.resolve({ ok: false });
     var remote = root.MEMBERS && root.MEMBERS.verifyUrl;
     if (remote) {
       return fetch(remote, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ code: normalised })
+        body: JSON.stringify({ username: user, password: pass })
       }).then(function (res) {
         return res.json().then(function (data) {
           if (res.ok && data && data.ok && data.name) {
-            return { ok: true, name: String(data.name), code: normalised, season: season() };
+            return { ok: true, name: String(data.name), username: user, season: season() };
           }
           return { ok: false };
         });
       }).catch(function () { return { ok: false }; });
     }
-    return verifyLocal(normalised);
+    return verifyLocal(user, pass);
   }
 
   function readSession() {
@@ -63,15 +60,15 @@
       var raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return null;
       var data = JSON.parse(raw);
-      if (!data || data.season !== season() || !data.code || !data.name) return null;
-      return { season: data.season, code: String(data.code), name: String(data.name) };
+      if (!data || data.season !== season() || !data.username || !data.name) return null;
+      return { season: data.season, username: String(data.username), name: String(data.name) };
     } catch (e) {
       return null;
     }
   }
 
   function writeSession(member) {
-    var record = { season: season(), code: member.code, name: member.name };
+    var record = { season: season(), username: member.username, name: member.name };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
     localStorage.setItem(TAG_KEY, JSON.stringify(record));
   }
@@ -98,11 +95,11 @@
       }
     }
     var who = document.getElementById('order-who');
-    if (who) who.textContent = member ? ('Ordering as ' + member.name + ' · ' + member.code) : '';
+    if (who) who.textContent = member ? ('Ordering as ' + member.name + ' · ' + member.username) : '';
     var printName = document.getElementById('print-member-name');
     var printCode = document.getElementById('print-member-code');
     if (printName) printName.textContent = member ? member.name : '';
-    if (printCode) printCode.textContent = member ? member.code : '';
+    if (printCode) printCode.textContent = member ? member.username : '';
     var buyer = document.getElementById('buyer-name');
     if (buyer && member && !buyer.value) buyer.value = member.name;
   }
@@ -114,11 +111,12 @@
     if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var input = document.getElementById('member-code');
+        var user = document.getElementById('member-user');
+        var pass = document.getElementById('member-pass');
         var error = document.getElementById('member-error');
         var button = form.querySelector('button[type="submit"]');
         if (button) button.disabled = true;
-        verifyMember(input && input.value).then(function (result) {
+        verifyMember(user && user.value, pass && pass.value).then(function (result) {
           if (button) button.disabled = false;
           if (!result.ok) {
             if (error) error.hidden = false;
@@ -126,7 +124,7 @@
           }
           if (error) error.hidden = true;
           writeSession(result);
-          if (input) input.value = '';
+          if (pass) pass.value = '';
           paint();
         });
       });

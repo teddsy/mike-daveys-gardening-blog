@@ -50,7 +50,8 @@ body[data-member-gate]:not(.is-member) .ql-bar{display:none !important}
 body[data-member-gate].is-member #member-gate{display:none}
 .member-gate{max-width:40rem;margin-left:auto;margin-right:auto}
 .member-form{display:grid;gap:.45rem;max-width:22rem;margin:.8rem 0 1rem}
-.member-form input{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.03em}
+.member-form input{width:100%}
+.demo-login{background:var(--sage-soft);border-radius:10px;padding:.7rem .9rem;font-weight:700}
 .member-error{color:#8f2a1a;font-weight:600;margin:0}
 .member-bar{flex-basis:100%;margin:0;font-weight:700;font-size:.92rem}
 .member-bar a{font-weight:700}

@@ -26,15 +26,17 @@
 <main id="main">
   <section id="member-gate" class="content-box member-gate" aria-labelledby="member-gate-title">
     <p class="kicker">Members only</p>
-    <h2 id="member-gate-title">Members only</h2>
+    <h2 id="member-gate-title">Sign in</h2>
     <p>The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
+    <p class="demo-login">Demo login - Username: mike123  Password: mike123</p>
     <form id="member-form" class="member-form">
-      <label for="member-code">Personal member code</label>
-      <input id="member-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="RGA-0000-NAME" required>
-      <p class="member-error" id="member-error" role="alert" hidden>That code is not recognised. Check it and try again.</p>
+      <label for="member-user">Username</label>
+      <input id="member-user" name="username" type="text" autocomplete="username" required>
+      <label for="member-pass">Password</label>
+      <input id="member-pass" name="password" type="password" autocomplete="current-password" required>
+      <p class="member-error" id="member-error" role="alert" hidden>That username or password is not recognised.</p>
       <p><button class="btn" type="submit">Sign in</button></p>
     </form>
-    <p class="meta">Lost your code? Ask Mike.</p>
   </section>
   <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
@@ -44,7 +46,7 @@
     <img class="produce-deco produce-deco--tr" src="img/produce/squash.webp" width="194" height="204" alt="" aria-hidden="true" decoding="async">
     <h2>Seed Ordering Service</h2>
     <p id="order-who" class="meta"></p>
-    <div class="print-only"><p><strong>Demo seed summary — not sent anywhere</strong><br>Ordered by <span id="print-member-name"></span> · Member code <span id="print-member-code"></span><br>Printed <span id="print-date"></span></p></div>
+    <div class="print-only"><p><strong>Demo seed summary — not sent anywhere</strong><br>Ordered by <span id="print-member-name"></span> · Username <span id="print-member-code"></span><br>Printed <span id="print-date"></span></p></div>
     <p class="no-print"><a id="continue" href="seed-shop.html">← Continue shopping</a></p>
     <div id="basket"></div>
     <div id="summary" hidden>
