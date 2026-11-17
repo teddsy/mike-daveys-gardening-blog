@@ -1,4 +1,4 @@
-/* Kings Seeds fruit, vegetable and herb catalogue for this demo shop.
+/* Kings Seeds fruit, vegetable and herb catalogue for this demo catalogue.
    Prices are the list prices collected on 2026-11-05.
    This demo charges that list price. No payment is taken and orders are not sent. */
 window.SEED_CATALOGUE = {

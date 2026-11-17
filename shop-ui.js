@@ -1,4 +1,4 @@
-/* Seed shop pages (landing, list, product, basket). Demo – no payment, nothing sent. Needs kings-seeds-data.js + shop-core.js. */
+/* Seed Ordering Service pages (landing, list, product, basket). Demo – no payment, nothing sent. Needs kings-seeds-data.js + shop-core.js. */
 (function(){
 'use strict';
 var S=window.SEED_SHOP, IDX=S.buildIndex(window.SEED_CATALOGUE||{sections:[]});

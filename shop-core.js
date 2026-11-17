@@ -1,4 +1,4 @@
-/* Seed shop core logic. Shared by the seed pages. Demo only: no payment, nothing sent. */
+/* Seed Ordering Service core logic. Shared by the seed pages. Demo only: no payment, nothing sent. */
 (function(root,factory){var S=factory();if(typeof module==='object'&&module.exports)module.exports=S;else root.SEED_SHOP=S;})(this,function(){
   var PER_PAGE=24, CART_KEY='seedCart', MAX_QTY=99;
   var FRUIT=['Rhubarb','Strawberry','Strawberries (plants)','Raspberries','Blackberries','Blueberries','Currants','Gooseberry','Loganberries','Rhubarb Crowns'];

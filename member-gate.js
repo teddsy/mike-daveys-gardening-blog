@@ -1,6 +1,6 @@
 /* Member gate for the Seed Ordering Service.
    verifyMember is the only check. On GitHub Pages it compares a SHA-256 hash
-   in the browser. That is a demo, not real security: the shop files are still
+   in the browser. That is a demo, not real security: the catalogue files are still
    downloaded. A Cloudflare Worker can answer the same function. See cloudflare/README.md. */
 (function (root) {
   'use strict';

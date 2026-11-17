@@ -135,7 +135,7 @@ dialog{border:1px solid var(--line);border-radius:var(--radius);max-width:min(72
 .hub-padlet-fallback{position:absolute;inset:1rem;color:var(--muted)}
 .hub-join{text-align:center}
 
-/* ===== Seed shop ===== */
+/* ===== Seed Ordering Service ===== */
 .crumbs{font-size:.92rem;color:var(--muted);margin:0 0 .8rem}.crumbs a{font-weight:600;text-decoration:none}.crumbs span[aria-current]{color:var(--ink)}
 .shop-banner{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;background:var(--sage-soft);border-radius:12px;padding:.7rem 1rem;margin-bottom:1rem}
 .shop-banner strong{color:var(--sage)}
@@ -273,7 +273,7 @@ html{scroll-behavior:smooth}
 .ql-group::before{content:"\1F331";margin-right:.45rem;font-size:.95em}
 .ql-group + .ql-row{border-top:0}
 
-/* Shop page / list view toggle and landing crop list */
+/* List view toggle and landing crop list */
 .view-toggle{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .7rem}
 .view-toggle a{border:2px solid var(--rust);color:var(--rust-dk);border-radius:999px;padding:.4rem 1rem;text-decoration:none;font-weight:700;background:#fff}
 .view-toggle a:hover{background:var(--rust);color:#fff}
