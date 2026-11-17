@@ -30,12 +30,13 @@ window.addEventListener('pageshow',function(e){if(e.persisted)resync();});
 window.addEventListener('storage',function(e){if(!e.key||e.key===S.CART_KEY)resync();});
 function catLabel(c){var x=S.CATS.filter(function(k){return k.id===c;})[0];return x?x.label:'All seeds';}
 function priceHtml(it){if(it.listPrice==null)return'<div class="price-row"><span class="plain">Price on request</span></div>';
-  if(!S.isSeed(it))return'<div class="price-row"><span class="now">'+S.money(it.listPrice)+'</span><span class="pill-plant">Plant</span></div>';
-  return'<div class="price-row"><span class="now">'+S.money(it.listPrice)+'</span></div>';}
+  var member=S.unitPrice(it),save=S.saveAmount(it.listPrice);var plant=!S.isSeed(it)?'<span class="pill-plant">Plant</span>':'';
+  return'<div class="price-row"><span class="was" aria-label="Catalogue price">'+S.money(it.listPrice)+'</span><span class="now" aria-label="Member price">'+S.money(member)+'</span>'+plant+'<span class="note">Member price</span><span class="note">You save '+S.money(save)+'</span></div>';}
+function fillDiscount(){var n=String(S.discountPercent());document.querySelectorAll('[data-discount-percent]').forEach(function(el){el.textContent=n;});}
 function lastList(){try{var v=sessionStorage.getItem('seedShopLast');if(v&&/^\?[^<>"]*$/.test(v))return 'seed-shop.html'+v;}catch(e){}return 'seed-shop.html';}
 
 /* ---- Landing ---- */
-function landing(){document.querySelectorAll('[data-cat-count]').forEach(function(el){el.textContent=S.query(IDX,{cat:el.getAttribute('data-cat-count')}).total;});
+function landing(){fillDiscount();document.querySelectorAll('[data-cat-count]').forEach(function(el){el.textContent=S.query(IDX,{cat:el.getAttribute('data-cat-count')}).total;});
   var el=$('#countdown');if(el){var end=new Date('2027-01-31T23:59:59');var ms=end-new Date();
     el.textContent=ms<=0?'Orders have closed (deadline was 31 January 2027).':'Orders close 31 January 2027 · '+Math.floor(ms/864e5)+' days remaining';}
   var box=$('#crop-list');
@@ -47,7 +48,7 @@ function landing(){document.querySelectorAll('[data-cat-count]').forEach(functio
     box.innerHTML=html.join('');}}
 
 /* ---- List ---- */
-function list(){
+function list(){fillDiscount();
   var st=S.parseState(location.search), r=S.query(IDX,st);
   var view=resolveView(st);
   var cleanState={cat:r.cat,crop:r.crop,q:st.q,sort:st.sort,clay:r.clay?'1':'',page:view==='list'?1:r.page,view:view};
@@ -114,7 +115,7 @@ function list(){
 
 /* ---- Product ---- */
 var LABELS={when_to_sow:'When to sow',where_to_sow:'Where to sow',sowing_depth:'Sowing depth',spacing:'Spacing',germination:'Germination',harvest:'Harvest',maturity:'Maturity',height:'Height',spread:'Spread',hardiness:'Hardiness',handy_tip:'Handy tip',notes:'Notes'};
-function product(){
+function product(){fillDiscount();
   var p=new URLSearchParams(location.search),id=p.get('id'),from=p.get('from')||'';
   var back=/^\?[^<>"]*$/.test(from)?'seed-shop.html'+from:lastList();
   var it=id&&IDX.byId[id];var box=$('#product');
@@ -144,16 +145,16 @@ function product(){
 }
 
 /* ---- Basket ---- */
-function basket(){
+function basket(){fillDiscount();
   $('#continue').href=lastList();
   function render(){var ids=Object.keys(cart),t=S.cartTotals(cart,IDX.byId),w=$('#basket');
     if(!ids.length){w.innerHTML='<div class="empty-state"><h2>Your basket is empty</h2><p>Browse the Kings Seeds range and add seeds or soft fruit plants.</p><p><a class="btn" href="seed-shop.html">Browse seeds</a></p></div>';$('#summary').hidden=true;return;}
     $('#summary').hidden=false;
     w.innerHTML='<table class="basket-table"><thead><tr><th scope="col">Item</th><th scope="col">Each</th><th scope="col">Qty</th><th scope="col">Line</th><th scope="col"><span class="sr">Remove</span></th></tr></thead><tbody>'+
-     ids.map(function(id){var it=IDX.byId[id],u=S.unitPrice(it)||0,q=cart[id];return'<tr><td><a href="seed-product.html?id='+encodeURIComponent(id)+'" data-details="'+esc(id)+'">'+esc(it.name)+'</a><br><span class="meta">'+esc(it.pack||'')+' · '+(S.isSeed(it)?'catalogue list price':'plant at catalogue list price')+'</span></td><td>'+S.money(u)+'</td>'+
+     ids.map(function(id){var it=IDX.byId[id],u=S.unitPrice(it)||0,q=cart[id],save=S.saveAmount(it.listPrice)||0;return'<tr><td><a href="seed-product.html?id='+encodeURIComponent(id)+'" data-details="'+esc(id)+'">'+esc(it.name)+'</a><br><span class="meta">'+esc(it.pack||'')+' · Catalogue '+S.money(it.listPrice)+' · You save '+S.money(save)+'</span></td><td>'+S.money(u)+'</td>'+
       '<td><div class="qty no-print"><button type="button" data-dec="'+esc(id)+'" aria-label="Decrease '+esc(it.name)+'">−</button><input type="number" min="1" max="99" value="'+q+'" data-qty="'+esc(id)+'" aria-label="Quantity of '+esc(it.name)+'"><button type="button" data-inc="'+esc(id)+'" aria-label="Increase '+esc(it.name)+'">+</button></div><span class="print-only">'+q+'</span></td>'+
       '<td>'+S.money(Math.round(u*q*100)/100)+'</td><td><button type="button" class="btn linkish no-print" data-rm="'+esc(id)+'">Remove</button></td></tr>';}).join('')+'</tbody></table>';
-    $('#t-count').textContent=t.count;var totalEl=$('#t-total');if(totalEl)totalEl.textContent=S.money(t.total);
+    $('#t-count').textContent=t.count;var catEl=$('#t-catalogue');if(catEl)catEl.textContent=S.money(t.catalogue);var memEl=$('#t-member');if(memEl)memEl.textContent=S.money(t.member);var saveEl=$('#t-save');if(saveEl)saveEl.textContent=S.money(t.save)+' ('+t.percent+'%)';
     var member=orderMember();var who=$('#order-who');if(who)who.textContent=member?('Ordering as '+member.name+' · '+member.username):'';
     var buyer=$('#buyer-name');if(buyer&&member&&!buyer.value)buyer.value=member.name;updateBadge();}
   var w=$('#basket');
@@ -197,7 +198,7 @@ function openDetails(id,from){ensureDialog();if(dlg.hasAttribute('open')){var ke
     '<h3>Description</h3><p id="det-desc">'+esc(it.desc||'Loading description…')+'</p><div class="grow" id="det-grow"></div>'+
     (it.tip?'<p><strong>Clay-soil note:</strong> '+esc(it.tip)+'</p>':'')+
     '<p class="meta"><a href="'+esc(full)+'">Open full page (rating, share link)</a>'+(it.url?' · <a href="'+esc(it.url)+'" target="_blank" rel="noopener">Kings Seeds (new tab)</a>':'')+'</p>'+
-    '<p class="meta">'+(S.isSeed(it)?'Catalogue list price.':'Soft fruit plant at the catalogue list price.')+' Order by 31 January 2027. Demo – no payment.</p>';
+    '<p class="meta">Catalogue price and example member price. Order by 31 January 2027. Demo – no payment.</p>';
   var df=dlg.querySelector('#det-form');if(df)df.addEventListener('submit',onDetSubmit);
   document.body.classList.add('modal-open');
   if(typeof dlg.showModal==='function'){dlg.showModal();}else{dlg.setAttribute('open','');}

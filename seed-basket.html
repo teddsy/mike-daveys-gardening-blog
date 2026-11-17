@@ -40,7 +40,7 @@
   </section>
   <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
-  <p class="demo-note" role="note"><strong>Demo.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <p class="demo-note" role="note"><strong>Demo.</strong> Each line shows the catalogue price and the example member price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs"><a href="seed-order.html">Seed Ordering Service</a> › <span aria-current="page">Basket</span></p>
   <section class="produce-host content-box">
     <img class="produce-deco produce-deco--tr" src="img/produce/squash.webp" width="194" height="204" alt="" aria-hidden="true" decoding="async">
@@ -53,14 +53,16 @@
     <div id="summary" hidden>
       <div class="totals" aria-live="polite">
         <div class="row"><span>Items</span><span id="t-count">0</span></div>
-        <div class="row pay"><span>Total</span><span id="t-total">£0.00</span></div>
+        <div class="row"><span>Catalogue total</span><span id="t-catalogue">£0.00</span></div>
+        <div class="row"><span>Member total</span><span id="t-member">£0.00</span></div>
+        <div class="row pay"><span>You save</span><span id="t-save">£0.00 (0%)</span></div>
       </div>
       <div class="no-print" style="margin-top:1rem">
         <label for="buyer-name">Name on the printed summary (optional)</label><br>
         <input id="buyer-name" type="text" autocomplete="name" style="max-width:20rem;width:100%">
         <p style="margin-top:.8rem"><button class="btn" type="button" id="print">Print summary</button> <button class="btn ghost" type="button" id="empty-basket">Empty basket</button></p>
       </div>
-      <p class="meta">Demo only. The total is the catalogue list price. No payment is taken and this order is not sent anywhere.</p>
+      <p class="meta">Demo only. The amount due in this example is the member total. No payment is taken and this order is not sent anywhere.</p>
     </div>
   </section>
 </div>

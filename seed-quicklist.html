@@ -40,13 +40,13 @@
   </section>
   <div id="member-app">
   <p class="service-notice" role="note">The Seed Ordering Service is a private, non-profit service for R.G.A members only.</p>
-  <p class="demo-note" role="note"><strong>Demo.</strong> Every line is shown at the catalogue list price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
+  <p class="demo-note" role="note"><strong>Demo.</strong> Each line shows the catalogue price and the example member price. No payment is taken, and orders are not sent anywhere. The basket stays in this browser only.</p>
   <p class="crumbs"><a href="seed-order.html">Seed Ordering Service</a> › <span aria-current="page">Quick order list</span></p>
   <section class="produce-host content-box">
     <img class="produce-deco produce-deco--tr produce-deco--sm" src="img/produce/pea.webp" width="178" height="215" alt="" aria-hidden="true" decoding="async">
     <p class="kicker">Demo catalogue</p>
     <h2>Seed Ordering Service</h2>
-    <p>Every seed and plant line on one page: type, variety, packet size and the catalogue list price. Tick a box to add one of that item to the basket (the same basket as the rest of the Seed Ordering Service). Untick to take it out. The total stays at the bottom of the screen.</p>
+    <p>Every seed and plant line on one page: type, variety, packet size, catalogue price and member price. Tick a box to add one of that item to the basket (the same basket as the rest of the Seed Ordering Service). Untick to take it out. The totals stay at the bottom of the screen.</p>
     <p><a href="seed-shop.html">Prefer cards and details? Use the Seed Ordering Service</a> · <a href="seed-basket.html">View basket</a></p>
   </section>
   <form class="ql-filters" id="ql-filters" role="search" aria-label="Filter the quick order list">
@@ -70,7 +70,9 @@
 <div class="ql-bar" role="region" aria-label="Basket totals">
   <div class="ql-bar-totals" aria-live="polite">
     <span><strong id="ql-count">0</strong> items</span>
-    <span>Total <strong id="ql-total">£0.00</strong></span>
+    <span>Catalogue <strong id="ql-catalogue">£0.00</strong></span>
+    <span>Member <strong id="ql-member-total">£0.00</strong></span>
+    <span>You save <strong id="ql-you-save">£0.00 (0%)</strong></span>
   </div>
   <div class="ql-bar-acts"><a class="ql-top" href="#top" aria-label="Back to top of list" title="Back to top">&#8593; Top</a><a class="btn" id="ql-buy" href="seed-basket.html">View basket</a></div>
 </div>

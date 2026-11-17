@@ -29,14 +29,16 @@
       '<div class="ql-type" role="cell">' + esc(typ) + '</div>' +
       '<div class="ql-name" role="cell">' + esc(name) + (plant ? ' <span class="pill-plant">Plant</span>' : '') + '</div>' +
       '<div class="ql-pack" role="cell">' + esc(pack) + '</div>' +
-      '<div class="ql-price" role="cell">' + S.money(it.listPrice) + plantNote + '</div>' +
+      '<div class="ql-cat" role="cell">' + S.money(it.listPrice) + '</div>' +
+      '<div class="ql-mem" role="cell">' + S.money(S.unitPrice(it)) + plantNote + '</div>' +
+      '<div class="ql-save" role="cell">You save ' + S.money(S.saveAmount(it.listPrice)) + '</div>' +
       '<div class="ql-tick" role="cell"><label class="ql-check"><input type="checkbox" data-add="' + esc(id) + '" id="ql-' + esc(id) + '"' + (on ? ' checked' : '') + '><span class="sr">Add ' + esc(name) + ' to basket</span>' + qtyHint(cart, id) + '</label></div>' +
       '</div>';
   }
   function listHtml(items, cart) {
     var html = ['<div class="ql-head" role="row">' +
       '<div role="columnheader">Type</div><div role="columnheader">Variety</div><div role="columnheader">Packet / size</div>' +
-      '<div role="columnheader">Price</div><div role="columnheader">Add</div></div>'];
+      '<div role="columnheader">Catalogue price</div><div role="columnheader">Member price</div><div role="columnheader">You save</div><div role="columnheader">Add</div></div>'];
     var last = null;
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
@@ -85,7 +87,10 @@
     var tt = S.cartTotals(cart || {}, byId || IDX.byId);
     var set = function (id, v) { var el = $(id); if (el) el.textContent = v; };
     set('#ql-count', String(tt.count));
-    set('#ql-total', S.money(tt.total));
+    set('#ql-total', S.money(tt.member));
+    set('#ql-catalogue', S.money(tt.catalogue));
+    set('#ql-member-total', S.money(tt.member));
+    set('#ql-you-save', S.money(tt.save) + ' (' + tt.percent + '%)');
     document.querySelectorAll('[data-basket-count]').forEach(function (el) { el.textContent = tt.count; });
     return tt;
   }
