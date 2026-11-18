@@ -32,13 +32,13 @@
       '<div class="ql-cat" role="cell">' + S.money(it.listPrice) + '</div>' +
       '<div class="ql-mem" role="cell">' + S.money(S.unitPrice(it)) + plantNote + '</div>' +
       '<div class="ql-save" role="cell">You save ' + S.money(S.saveAmount(it.listPrice)) + '</div>' +
-      '<div class="ql-tick" role="cell"><button type="button" class="btn buy-now" data-buy="' + esc(id) + '">BUY NOW (DEMO)</button>' + (on && cart && cart[id] ? '<span class="ql-qty">×' + cart[id] + '</span>' : '') + '</div>' +
+      '<div class="ql-tick" role="cell"><button type="button" class="btn buy-now" data-buy="' + esc(id) + '">BUY NOW DEMO</button>' + (on && cart && cart[id] ? '<span class="ql-qty">×' + cart[id] + '</span>' : '') + '</div>' +
       '</div>';
   }
   function listHtml(items, cart) {
     var html = ['<div class="ql-head" role="row">' +
       '<div role="columnheader">Type</div><div role="columnheader">Variety</div><div role="columnheader">Packet / size</div>' +
-      '<div role="columnheader">Catalogue price</div><div role="columnheader">Member price</div><div role="columnheader">You save</div><div role="columnheader">Order</div></div>'];
+      '<div role="columnheader">Catalogue price</div><div role="columnheader">Member price</div><div role="columnheader">You save</div></div>'];
     var last = null;
     for (var i = 0; i < items.length; i++) {
       var it = items[i];

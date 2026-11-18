@@ -13,7 +13,7 @@
   function r2(n){return Math.round(n*100)/100;}
   function discountPercent(){
     var raw=(typeof window!=='undefined'&&window.MEMBERS)?window.MEMBERS.discountPercent:0;
-    var n=Number(raw);if(!isFinite(n)||n<0)n=0;if(n>100)n=100;return n;
+    var n=Number(raw);if(!isFinite(n)||n<0)n=0;if(n>20)n=20;return n;
   }
   function memberUnit(list){if(list==null)return null;return Math.round(Math.round(list*100)*(100-discountPercent())/100)/100;}
   function saveAmount(list){if(list==null)return null;return r2(list-memberUnit(list));}
