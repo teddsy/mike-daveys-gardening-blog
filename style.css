@@ -61,6 +61,11 @@ hr.leaf{border:0;border-top:1px solid var(--line);margin:1.6rem auto;max-width:6
 
 /* Buttons */
 .btn{display:inline-block;background:var(--rust);color:#fff;border:2px solid var(--rust);border-radius:999px;padding:.6rem 1.3rem;font:inherit;font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;line-height:1.2}
+.btn.buy-now{display:block;width:100%;text-align:center;background:var(--rust);border-color:var(--rust);letter-spacing:.03em;padding:.75rem 1rem;font-size:1rem}
+.btn.buy-now:hover{background:var(--rust-dk);border-color:var(--rust-dk);color:#fff}
+.pitem .acts{flex-direction:column;align-items:stretch}
+.ql-tick .buy-now{width:auto;min-width:9.2rem;padding:.45rem .7rem;font-size:.78rem}
+.toast{max-width:min(34rem,92vw);text-align:center;line-height:1.35}
 .btn:hover{background:var(--rust-dk);border-color:var(--rust-dk);color:#fff}
 .btn.ghost,.btn.sec,.btn-outline{background:transparent;color:var(--rust-dk);border-color:var(--rust)}
 .btn.ghost:hover,.btn.sec:hover,.btn-outline:hover{background:var(--rust);color:#fff}
@@ -225,7 +230,7 @@ body.modal-open{overflow:hidden}
 .ql-filters p{margin:0;flex:1 1 12rem}
 .ql-filters input,.ql-filters select{width:100%;max-width:22rem}
 .ql-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 1.2rem}
-.ql-head,.ql-row{display:grid;grid-template-columns:minmax(6.5rem,.9fr) minmax(8rem,1.5fr) minmax(5rem,.7fr) 5.6rem 5.6rem 6.2rem 3.2rem;gap:.35rem .6rem;align-items:center;padding:.45rem .8rem}
+.ql-head,.ql-row{display:grid;grid-template-columns:minmax(6.5rem,.9fr) minmax(8rem,1.5fr) minmax(5rem,.7fr) 5.6rem 5.6rem 6.2rem 10.6rem;gap:.35rem .6rem;align-items:center;padding:.45rem .8rem}
 .ql-head{background:var(--rust-soft);color:var(--rust-dk);font-weight:700;font-size:.88rem;letter-spacing:.02em;position:sticky;top:4.6rem;z-index:3;border-bottom:1px solid var(--line)}
 .ql-row{border-bottom:1px solid var(--line);font-size:.95rem}
 .ql-row:nth-child(even){background:#fbf7f0}

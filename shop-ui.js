@@ -16,7 +16,7 @@ function warn(on){var w=$('#storage-warn');if(!w&&on){w=document.createElement('
 function orderMember(){return window.SEED_MEMBER&&window.SEED_MEMBER.current?window.SEED_MEMBER.current():null;}
 function persist(){var ok=!!(store&&S.saveCart(store,cart));if(store){try{var member=orderMember();if(member)store.setItem('seedOrderTag',JSON.stringify({season:member.season,username:member.username,name:member.name}));}catch(e){}}saveFailed=!ok;warn(!ok);updateBadge();return ok;}
 function mutate(fn){sync();fn();return persist();}
-function toast(msg){var t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show');},2600);}
+function toast(msg){var t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show');},4200);}
 function updateBadge(){var tt=S.cartTotals(cart,IDX.byId);document.querySelectorAll('[data-basket-count]').forEach(function(el){el.textContent=tt.count;});var Q=window.SEED_QUICKLIST;if(Q&&document.body.classList.contains('shop-list-view'))Q.updateBar(cart,IDX.byId);}
 var VIEW_KEY='seedShopView';
 function readViewPref(){try{var v=store&&store.getItem(VIEW_KEY);if(v==='list'||v==='page')return v;}catch(e){}return 'page';}
@@ -24,7 +24,7 @@ function writeViewPref(v){try{if(store&&(v==='list'||v==='page'))store.setItem(V
 function resolveView(st){if(st.view==='list'||st.view==='page'){writeViewPref(st.view);return st.view;}return readViewPref();}
 function setTick(id,on){if(!IDX.byId[id])return;mutate(function(){if(on){if(!cart[id])cart[id]=1;}else delete cart[id];});var Q=window.SEED_QUICKLIST;if(Q)Q.syncTicks($('#ql-list'),cart);updateBadge();}
 function add(id,q){var it=IDX.byId[id];if(!it)return;var n;var ok=mutate(function(){n=Math.min(S.MAX_QTY,(cart[id]||0)+(q||1));cart[id]=n;});
-  toast(ok?'Added '+it.name+' (×'+n+' in basket)':'Added '+it.name+' on this page only – not saved (see warning)');refreshView();return{ok:ok,n:n};}
+  toast(ok?('Added '+it.name+' to your demo order (×'+n+'). No real order is sent and no payment is taken.'):('Added '+it.name+' on this page only. No real order is sent and no payment is taken. It was not saved — see the warning.'));refreshView();return{ok:ok,n:n};}
 function resync(){sync();updateBadge();refreshView();}
 window.addEventListener('pageshow',function(e){if(e.persisted)resync();});
 window.addEventListener('storage',function(e){if(!e.key||e.key===S.CART_KEY)resync();});
@@ -89,7 +89,7 @@ function list(){fillDiscount();
     $('#empty').hidden=true;
     if(Q&&$('#ql-list')){
       Q.render($('#ql-list'),all.items,cart);
-      Q.bindList($('#ql-list'),{setTick:setTick});
+      Q.bindList($('#ql-list'),{setTick:setTick,buy:function(id){add(id,1);}});
       Q.updateBar(cart,IDX.byId);
       refreshView=function(){Q.syncTicks($('#ql-list'),cart);Q.updateBar(cart,IDX.byId);};
     }
@@ -104,7 +104,7 @@ function list(){fillDiscount();
   g.innerHTML=r.items.map(function(it){var href='seed-product.html?id='+encodeURIComponent(it.id)+'&from='+from;
     var hd='';if(grpOn&&it.section!==lastSec){lastSec=it.section;hd='<li class="pgroup" role="presentation"><h3>'+esc(S.cropLabel(it.section))+'</h3></li>';}
     return hd+'<li class="pitem"><span class="crop">'+esc(S.cropLabel(it.section))+'</span><h3><a href="'+href+'" data-details="'+esc(it.id)+'">'+esc(it.name)+'</a></h3><span class="meta">'+esc(it.pack||'')+'</span>'+(it.clay?'<span><span class="pill-clay">Clay-soil friendly</span></span>':'')+priceHtml(it)+
-    '<div class="acts">'+(it.listPrice!=null?'<button type="button" class="btn small" data-add="'+esc(it.id)+'">Add to basket</button>':'')+'<a class="btn ghost small" href="'+href+'" data-details="'+esc(it.id)+'">Details</a></div></li>';}).join('');
+    '<div class="acts">'+(it.listPrice!=null?'<button type="button" class="btn buy-now" data-add="'+esc(it.id)+'">BUY NOW (DEMO)</button>':'')+'<a class="btn ghost small" href="'+href+'" data-details="'+esc(it.id)+'">Details</a></div></li>';}).join('');
   g.addEventListener('click',function(e){var b=e.target.closest('[data-add]');if(b)add(b.getAttribute('data-add'),1);});
   var p=$('#pager'),h=[];function link(n,text,rel){var s=Object.assign({},cleanState,{page:n});return'<a href="seed-shop.html'+esc(S.toSearch(s))+'"'+(rel?' rel="'+rel+'"':'')+' aria-label="Page '+n+'">'+text+'</a>';}
   if(r.pages>1){if(r.page>1)h.push(link(r.page-1,'‹ Prev','prev'));
@@ -132,7 +132,7 @@ function product(){fillDiscount();
    (it.tip?'<p><strong>Clay-soil note:</strong> '+esc(it.tip)+'</p>':'')+(it.url?'<p class="meta"><a href="'+esc(it.url)+'" target="_blank" rel="noopener">View on Kings Seeds (new tab)</a></p>':'')+
    '<div class="box" style="margin-top:1rem"><h4>Your rating</h4><p class="meta">Saved in this browser only.</p><div id="stars" role="group" aria-label="Your rating"></div></div></div>'+
    '<aside class="buybox" aria-label="Buy">'+priceHtml(it)+
-   (it.listPrice!=null?'<form id="buy"><label for="qty">Quantity</label><div class="qty"><button type="button" data-step="-1" aria-label="Decrease quantity">−</button><input id="qty" name="qty" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">+</button></div><p style="margin-top:.8rem"><button class="btn" type="submit">Add to basket</button></p></form>':'<p>Price on request.</p>')+
+   (it.listPrice!=null?'<form id="buy"><label for="qty">Quantity</label><div class="qty"><button type="button" data-step="-1" aria-label="Decrease quantity">−</button><input id="qty" name="qty" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">+</button></div><p style="margin-top:.8rem"><button class="btn buy-now" type="submit">BUY NOW (DEMO)</button></p></form>':'<p>Price on request.</p>')+
    '<p class="meta" id="in-basket"></p><p><a class="basket-link" href="seed-basket.html">View basket (<span data-basket-count>0</span>)</a></p><p class="meta">Order by 31 January 2027. Demo – no payment taken.</p></aside></div>';
   function inBasket(){$('#in-basket').textContent=cart[id]?('In your basket: '+cart[id]):'';}inBasket();
   refreshView=inBasket;var f=$('#buy');if(f){var q=f.elements.namedItem('qty');f.addEventListener('click',function(e){var b=e.target.closest('[data-step]');if(!b)return;q.value=Math.min(99,Math.max(1,(parseInt(q.value,10)||1)+(+b.getAttribute('data-step'))));});
@@ -193,7 +193,7 @@ function openDetails(id,from){ensureDialog();if(dlg.hasAttribute('open')){var ke
   if(!it){dlg.innerHTML='<div class="det-head"><h2 id="det-title">Product not found</h2><button type="button" class="det-close" aria-label="Close">×</button></div><p>We could not find that seed or plant in this demo catalogue.</p><p><button type="button" class="btn det-close">Close</button></p>';}
   else dlg.innerHTML='<div class="det-head"><h2 id="det-title">'+esc(it.name)+'</h2><button type="button" class="det-close" aria-label="Close details">×</button></div>'+
     '<p class="meta">'+esc(S.cropLabel(it.section))+' · '+esc(it.pack||'')+(it.sku?' · Kings code '+esc(it.sku):'')+'</p>'+(it.clay?'<p><span class="pill-clay">Clay-soil friendly (local notes)</span></p>':'')+priceHtml(it)+
-    (it.listPrice!=null?'<form id="det-form" class="det-buy"><label for="det-qty">Quantity</label><div class="qty"><button type="button" data-step="-1" aria-label="Decrease quantity">−</button><input id="det-qty" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">+</button></div> <button class="btn" type="submit">Add to basket</button></form>':'<p>Price on request.</p>')+
+    (it.listPrice!=null?'<form id="det-form" class="det-buy"><label for="det-qty">Quantity</label><div class="qty"><button type="button" data-step="-1" aria-label="Decrease quantity">−</button><input id="det-qty" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">+</button></div> <button class="btn buy-now" type="submit">BUY NOW (DEMO)</button></form>':'<p>Price on request.</p>')+
     '<p class="meta" id="det-status" role="status" aria-live="polite">'+(cart[id]?'In your basket: '+cart[id]:'')+'</p>'+
     '<h3>Description</h3><p id="det-desc">'+esc(it.desc||'Loading description…')+'</p><div class="grow" id="det-grow"></div>'+
     (it.tip?'<p><strong>Clay-soil note:</strong> '+esc(it.tip)+'</p>':'')+
