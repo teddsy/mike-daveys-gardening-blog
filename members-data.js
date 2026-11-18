@@ -7,7 +7,7 @@
 window.MEMBERS = {
   season: "2026-27",
   verifyUrl: "",
-  discountPercent: 50,
+  discountPercent: 20,
   login: {
     hash: "be772fe4c265879c27e60946ee1a4e67f0380bad51247fe2c6ca7a3d1e1cae51",
     name: "Mike"

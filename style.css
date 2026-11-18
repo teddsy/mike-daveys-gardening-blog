@@ -64,7 +64,7 @@ hr.leaf{border:0;border-top:1px solid var(--line);margin:1.6rem auto;max-width:6
 .btn.buy-now{display:block;width:100%;text-align:center;background:var(--rust);border-color:var(--rust);letter-spacing:.03em;padding:.75rem 1rem;font-size:1rem}
 .btn.buy-now:hover{background:var(--rust-dk);border-color:var(--rust-dk);color:#fff}
 .pitem .acts{flex-direction:column;align-items:stretch}
-.ql-tick .buy-now{width:auto;min-width:9.2rem;padding:.45rem .7rem;font-size:.78rem}
+.ql-tick .buy-now{display:inline-block;width:auto;min-width:12rem;padding:.55rem .9rem;font-size:.92rem}
 .toast{max-width:min(34rem,92vw);text-align:center;line-height:1.35}
 .btn:hover{background:var(--rust-dk);border-color:var(--rust-dk);color:#fff}
 .btn.ghost,.btn.sec,.btn-outline{background:transparent;color:var(--rust-dk);border-color:var(--rust)}
@@ -229,8 +229,8 @@ body.modal-open{overflow:hidden}
 .ql-filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:flex-end;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem 1.1rem;margin:0 0 1rem}
 .ql-filters p{margin:0;flex:1 1 12rem}
 .ql-filters input,.ql-filters select{width:100%;max-width:22rem}
-.ql-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 1.2rem}
-.ql-head,.ql-row{display:grid;grid-template-columns:minmax(6.5rem,.9fr) minmax(8rem,1.5fr) minmax(5rem,.7fr) 5.6rem 5.6rem 6.2rem 10.6rem;gap:.35rem .6rem;align-items:center;padding:.45rem .8rem}
+.ql-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:visible;margin:0 0 1.2rem}
+.ql-head,.ql-row{display:grid;grid-template-columns:minmax(6rem,1fr) minmax(8rem,1.6fr) minmax(4.5rem,.7fr) 5.4rem 5.4rem minmax(5.2rem,6.6rem);gap:.35rem .6rem;align-items:center;padding:.45rem .8rem}
 .ql-head{background:var(--rust-soft);color:var(--rust-dk);font-weight:700;font-size:.88rem;letter-spacing:.02em;position:sticky;top:4.6rem;z-index:3;border-bottom:1px solid var(--line)}
 .ql-row{border-bottom:1px solid var(--line);font-size:.95rem}
 .ql-row:nth-child(even){background:#fbf7f0}
@@ -241,7 +241,7 @@ body.modal-open{overflow:hidden}
 .ql-mem{font-weight:700;color:var(--sage)}
 .ql-save{font-weight:700;color:var(--rust-dk)}
 .ql-plant{font-size:.75rem;font-weight:600;color:#6a4b25;text-transform:uppercase;letter-spacing:.03em}
-.ql-tick{text-align:center}
+.ql-tick{grid-column:1 / -1;text-align:left;padding:.15rem 0 .45rem}
 .ql-check{display:inline-flex;align-items:center;justify-content:center;gap:.2rem;margin:0;cursor:pointer}
 .ql-check input{width:1.25rem;height:1.25rem;accent-color:var(--rust);cursor:pointer}
 .ql-qty{font-size:.8rem;font-weight:700;color:var(--rust-dk)}
@@ -257,7 +257,7 @@ body.modal-open{overflow:hidden}
 @media(max-width:700px){
   .ql-head{display:none}
   .ql-group{top:0}
-  .ql-row{grid-template-columns:1fr auto;grid-template-areas:"type tick" "name tick" "pack tick" "cat tick" "mem tick" "save tick";gap:.12rem .6rem;padding:.7rem .8rem;align-items:start}
+  .ql-row{grid-template-columns:1fr;grid-template-areas:"type" "name" "pack" "cat" "mem" "save" "tick";gap:.12rem;padding:.7rem .8rem;align-items:start}
   .ql-type{grid-area:type;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}
   .ql-name{grid-area:name}
   .ql-pack{grid-area:pack}
@@ -266,7 +266,8 @@ body.modal-open{overflow:hidden}
   .ql-save{grid-area:save}
   .ql-cat::before{content:"Catalogue ";font-weight:600}
   .ql-mem::before{content:"Member ";font-weight:600}
-  .ql-tick{grid-area:tick;align-self:center}
+  .ql-tick{grid-area:tick;grid-column:1 / -1;width:100%}
+  .ql-tick .buy-now{width:100%}
 }
 
 /* Quick list: keep Buy now clear of the Netlify badge (bottom-right) + back-to-top */
