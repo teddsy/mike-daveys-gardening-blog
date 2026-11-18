@@ -32,13 +32,13 @@
       '<div class="ql-cat" role="cell">' + S.money(it.listPrice) + '</div>' +
       '<div class="ql-mem" role="cell">' + S.money(S.unitPrice(it)) + plantNote + '</div>' +
       '<div class="ql-save" role="cell">You save ' + S.money(S.saveAmount(it.listPrice)) + '</div>' +
-      '<div class="ql-tick" role="cell"><label class="ql-check"><input type="checkbox" data-add="' + esc(id) + '" id="ql-' + esc(id) + '"' + (on ? ' checked' : '') + '><span class="sr">Add ' + esc(name) + ' to basket</span>' + qtyHint(cart, id) + '</label></div>' +
+      '<div class="ql-tick" role="cell"><button type="button" class="btn buy-now" data-buy="' + esc(id) + '">BUY NOW (DEMO)</button>' + (on && cart && cart[id] ? '<span class="ql-qty">×' + cart[id] + '</span>' : '') + '</div>' +
       '</div>';
   }
   function listHtml(items, cart) {
     var html = ['<div class="ql-head" role="row">' +
       '<div role="columnheader">Type</div><div role="columnheader">Variety</div><div role="columnheader">Packet / size</div>' +
-      '<div role="columnheader">Catalogue price</div><div role="columnheader">Member price</div><div role="columnheader">You save</div><div role="columnheader">Add</div></div>'];
+      '<div role="columnheader">Catalogue price</div><div role="columnheader">Member price</div><div role="columnheader">You save</div><div role="columnheader">Order</div></div>'];
     var last = null;
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
@@ -81,6 +81,11 @@
       var inp = e.target.closest && e.target.closest('input[data-add]');
       if (!inp || !api || !api.setTick) return;
       api.setTick(inp.getAttribute('data-add'), inp.checked);
+    });
+    container.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-buy]');
+      if (!btn || !api || !api.buy) return;
+      api.buy(btn.getAttribute('data-buy'));
     });
   }
   function updateBar(cart, byId) {
@@ -208,7 +213,24 @@
   function boot() {
     if (!$('#ql-list')) return;
     render($('#ql-list'), IDX.items, cart);
-    bindList($('#ql-list'), { setTick: setTick });
+    bindList($('#ql-list'), { setTick: setTick, buy: function (id) {
+      var it = IDX.byId[id];
+      if (!it) return;
+      if (!saveFailed) sync();
+      cart[id] = Math.min(S.MAX_QTY, (cart[id] || 0) + 1);
+      var ok = persist();
+      refresh();
+      var note = document.getElementById('ql-demo-note');
+      if (!note) {
+        note = document.createElement('p');
+        note.id = 'ql-demo-note';
+        note.className = 'demo-note';
+        note.setAttribute('role', 'status');
+        var list = $('#ql-list');
+        if (list && list.parentNode) list.parentNode.insertBefore(note, list);
+      }
+      note.textContent = (ok ? 'Added ' + it.name + ' to your demo order (×' + cart[id] + '). ' : 'Added ' + it.name + ' on this page only. ') + 'No real order is sent and no payment is taken.';
+    } });
     updateBar(cart, IDX.byId);
     updateFilterCount();
     var form = $('#ql-filters');
